@@ -1,6 +1,11 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: CollectionConfig requires any */
 
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import {
+  defaultColors,
+  FixedToolbarFeature,
+  lexicalEditor,
+  TextStateFeature,
+} from "@payloadcms/richtext-lexical";
 import type { CollectionConfig } from "payload";
 import { hasRole, validateSlug } from "@/lib/utils";
 
@@ -100,7 +105,44 @@ export const Docs: CollectionConfig = {
       name: "content",
       type: "richText",
       required: true,
-      editor: lexicalEditor({}),
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          FixedToolbarFeature(),
+          TextStateFeature({
+            state: {
+              // Text and background colors
+              color: {
+                ...defaultColors.text,
+                ...defaultColors.background,
+              },
+              // Font family options
+              font: {
+                "font-arial": {
+                  label: "Arial",
+                  css: { "font-family": "Arial, Helvetica, sans-serif" },
+                },
+                "font-roboto": {
+                  label: "Roboto",
+                  css: { "font-family": "'Roboto', sans-serif" },
+                },
+                "font-open-sans": {
+                  label: "Open Sans",
+                  css: { "font-family": "'Open Sans', sans-serif" },
+                },
+                "font-inter": {
+                  label: "Inter",
+                  css: { "font-family": "'Inter', sans-serif" },
+                },
+                "font-mono": {
+                  label: "Monospace",
+                  css: { "font-family": "'Space Mono', monospace" },
+                },
+              },
+            },
+          }),
+        ],
+      }),
       admin: {
         description: "The main content of the documentation page",
       },

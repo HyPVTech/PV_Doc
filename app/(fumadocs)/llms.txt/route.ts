@@ -1,6 +1,6 @@
 import { source } from "@/lib/source";
 
-export const revalidate = false;
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   const pages = await source.getPages();

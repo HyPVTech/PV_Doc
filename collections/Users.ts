@@ -37,8 +37,12 @@ export const Users: CollectionConfig = {
       if (user.role === "owner") {
         return true;
       }
-      // Admins can update users, but not other admins or owners (enforced by query constraint)
+      // Admins can update themselves or users with 'user' role
       if (user.role === "admin") {
+        // Allow admins to update themselves
+        if ("id" in user && String(user.id) === String(id)) {
+          return true;
+        }
         // Return a query constraint to only allow updating normal users
         return {
           role: {
@@ -46,8 +50,8 @@ export const Users: CollectionConfig = {
           },
         };
       }
-      // Normal users can only update themselves (non-role fields)
-      return "id" in user && user.id === id;
+      // Normal users can only update themselves
+      return "id" in user && String(user.id) === String(id);
     },
     // Owner can delete any user except themselves, admins cannot delete
     delete: ({ req: { user }, id }) => {

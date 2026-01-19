@@ -1,7 +1,6 @@
 import { source } from "@/lib/source";
 
-// cached forever
-export const revalidate = false;
+export const dynamic = "force-dynamic";
 
 interface LexicalNode {
   type?: string;

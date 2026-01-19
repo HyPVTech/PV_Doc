@@ -11,6 +11,8 @@ import VideoJSPlayer from "@/components/videojs-player";
 import config from "@/payload.config";
 import type { Media } from "@/payload-types";
 
+export const dynamic = "force-dynamic";
+
 const demoVideoHtml = `
   <div class="w-full">
     <video

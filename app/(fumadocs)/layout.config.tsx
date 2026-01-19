@@ -1,5 +1,6 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import { Home, Settings } from "lucide-react";
+import { FontSelector } from "@/components/font-selector";
 
 /**
  * Shared layout configurations
@@ -16,9 +17,10 @@ export const baseOptions: BaseLayoutProps = {
   nav: {
     title: (
       <div className="flex items-center gap-2">
-        <span className="font-bold font-serif tracking-wide">FumaPayload</span>
+        <span className="font-bold tracking-wide">FumaPayload</span>
       </div>
     ),
+    children: <FontSelector />,
   },
   links: [
     {

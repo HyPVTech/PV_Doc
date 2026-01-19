@@ -3,6 +3,7 @@ import "video.js/dist/video-js.css";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { FontProvider } from "@/components/font-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -33,7 +34,9 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={"flex min-h-screen flex-col"}>
-        <RootProvider>{children}</RootProvider>
+        <FontProvider>
+          <RootProvider>{children}</RootProvider>
+        </FontProvider>
       </body>
     </html>
   );
