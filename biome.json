@@ -1,0 +1,44 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite/biome/core", "ultracite/biome/next"],
+  "files": {
+    "includes": [
+      "!payload-types.ts",
+      "!app/(payload)/admin/importMap.js",
+      "!migrations"
+    ]
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noExcessiveLinesPerFunction": "off",
+        "noExcessiveCognitiveComplexity": "off",
+        "noBannedTypes": "off"
+      },
+      "style": {
+        "noMagicNumbers": "off",
+        "useNamingConvention": "off",
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "filenameCases": ["kebab-case", "PascalCase"]
+          }
+        }
+      },
+      "correctness": {
+        "noUnusedVariables": "off"
+      },
+      "suspicious": {
+        "noUnknownAtRules": "off"
+      },
+      "performance": {
+        "noNamespaceImport": "off"
+      }
+    }
+  }
+}
