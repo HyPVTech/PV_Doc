@@ -31,7 +31,7 @@ interface LexicalNode {
 /**
  * Lexical content structure with root node
  */
-interface LexicalContent {
+export interface LexicalContent {
   root?: {
     children?: LexicalNode[];
   };

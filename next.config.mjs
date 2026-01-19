@@ -14,7 +14,7 @@ const config = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: process.env.S3_ENDPOINT?.replace(/^https?:\/\//, "") || "",
+        hostname: "*.public.blob.vercel-storage.com",
       },
     ],
   },

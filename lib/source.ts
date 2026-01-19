@@ -8,7 +8,10 @@ import {
 import { getPayload } from "payload";
 import { cache } from "react";
 import config from "@/payload.config";
-import { extractTableOfContents } from "./lexical-serializer";
+import {
+  extractTableOfContents,
+  type LexicalContent,
+} from "./lexical-serializer";
 import { buildDocPath } from "./utils";
 
 interface DocRecord {
@@ -16,7 +19,7 @@ interface DocRecord {
   slug: string;
   title: string;
   description?: string | null;
-  content?: unknown;
+  content?: LexicalContent | null;
   parent?: number | DocRecord | null;
   order?: number;
 }
