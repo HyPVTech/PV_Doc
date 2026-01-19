@@ -55,10 +55,6 @@ export default async function Page(props: {
   );
 }
 
-export async function generateStaticParams() {
-  return await source.generateParams();
-}
-
 export async function generateMetadata(props: {
   params: Promise<{ slug?: string[] }>;
 }) {
@@ -85,4 +81,7 @@ export async function generateMetadata(props: {
   };
 }
 
+// Use ISR with on-demand revalidation instead of build-time static generation
+// This avoids database connection pool exhaustion during Vercel builds
 export const revalidate = 30;
+export const dynamicParams = true;

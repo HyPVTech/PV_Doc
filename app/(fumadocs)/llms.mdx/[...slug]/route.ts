@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 
-export const revalidate = false;
+export const dynamic = "force-dynamic";
 
 interface LexicalNode {
   type?: string;
@@ -212,50 +212,4 @@ URL: ${url}
 ${content}`;
 
   return new NextResponse(llmText);
-}
-
-export async function generateStaticParams() {
-  const payload = await getPayload({ config });
-
-  // Get all categories
-  const { docs: categories } = await payload.find({
-    collection: "categories",
-    limit: 1000,
-    pagination: false,
-    depth: 0,
-  });
-
-  const params: { slug: string[] }[] = [];
-
-  // Add category index pages (to support copying category index docs)
-  for (const category of categories) {
-    params.push({ slug: [category.slug] });
-  }
-
-  // Build full paths for all docs within each category (respecting parent chains)
-  for (const category of categories) {
-    const { docs: catDocs } = await payload.find({
-      collection: "docs",
-      where: {
-        category: {
-          equals: category.id,
-        },
-      },
-      limit: 1000,
-      pagination: false,
-      depth: 0,
-    });
-
-    const byId = new Map<string, DocRecord>();
-    for (const d of catDocs) {
-      byId.set(String(d.id), d as DocRecord);
-    }
-
-    for (const doc of catDocs) {
-      const pathSegs = buildDocPath(doc as DocRecord, byId);
-      params.push({ slug: [category.slug, ...pathSegs] });
-    }
-  }
-
-  return params;
 }

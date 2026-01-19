@@ -56,6 +56,10 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.PAYLOAD_DATABASE_URI || "",
+      // Limit connections for serverless environments (Neon, Supabase, etc.)
+      max: 3,
+      idleTimeoutMillis: 30_000,
+      connectionTimeoutMillis: 10_000,
     },
   }),
   editor: lexicalEditor(),

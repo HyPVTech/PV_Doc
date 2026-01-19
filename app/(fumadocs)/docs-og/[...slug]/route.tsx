@@ -3,6 +3,7 @@ import { ImageResponse } from "next/og";
 import { source } from "@/lib/source";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const ORIGIN_REGEX = /^https?:\/\//;
 
@@ -92,16 +93,4 @@ export async function GET(
   }
 
   return renderOG(page.data.title, page.data.description || "");
-}
-
-export async function generateStaticParams() {
-  const pages = await source.getPages();
-
-  const params = pages.map((page) => {
-    // Convert URL path to slug array and append "image.png"
-    const slugParts = page.url.replace("/docs/", "").split("/");
-    return { slug: [...slugParts, "image.png"] };
-  });
-
-  return params;
 }
